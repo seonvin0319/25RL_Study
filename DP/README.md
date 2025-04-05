@@ -102,21 +102,21 @@ python -m environment.gym_test
 | Policy Update Style | Explicit policy improvement | Value-based greedy extraction |
 | Average Reward | 0.7200 (over 1000 episodes) | 0.7400 (over 1000 episodes) |
 ---
-Policy Iteration은 한 번에 정책 전체를 개선하는 구조이기 때문에 빠르게 수렴하며, 실험에서도 매우 짧은 시간 내에 안정적인 정책을 도출했다.
+Policy Iteration은 정책 평가(policy evaluation)와 정책 개선(policy improvement)을 명확히 분리하여 진행한다.
+매 반복 주기마다 현재 정책(policy)에 대한 가치 함수(value function)를 전체 상태 공간에 대해 평가한 뒤, 이를 바탕으로 정책을 갱신한다.
+각 반복에서의 계산량은 많지만, 보다 직접적인 정책 개선을 수행하기 때문에 적은 반복 횟수로도 빠르게 수렴할 수 있다.
+단, 매 반복마다 정책 평가 단계에서 전체 상태 공간을 순회해야 하므로, 반복 한 번에 걸리는 시간은 상대적으로 길 수 있다.
+하지만 정확한 가치 추정에 기반하여 정책을 개선하므로, 빠르게 안정적인 정책을 도출하는 데 유리하다.
 
-반면, Value Iteration은 상태 가치(value)를 반복적으로 업데이트하면서 수렴해가며, 이론적으로는 더 많은 반복이 필요할 수 있지만, FrozenLake와 같이 작은 환경에서는 실행 시간이 거의 차이가 없었다.
-
-최종 value function 상에서 Value Iteration의 값(v[14])이 더 높게 수렴한 것은 Bellman Optimality Equation을 직접 최적화하는 방식이기 때문으로 해석할 수 있다.
-
-평균 보상 기준으로도 Value Iteration이 약간 우세했지만, 두 알고리즘 모두 0.7 이상의 높은 성능을 보여주었다.
-
-추가적으로, Value Iteration은 **정책 평가와 개선 단계를 분리하지 않아 구현이 간단**하고, 가치 함수를 직접 갱신하기 때문에 **빠르게 수렴하는 경향이 있다.**  
-다만, 상태 공간이 클 경우 **모든 상태에 대해 최대값 연산을 반복 수행해야 하므로 계산 비용이 높아질 수 있고**,  
-정확한 가치 수렴을 기다려야 하는 경우에는 **정책 반복보다 더 많은 반복이 필요할 수도 있다.**
+Value Iteration은 정책 평가와 정책 개선을 명시적으로 분리하지 않고,
+가치 함수(value function)를 반복적으로 갱신하면서 점진적으로 최적 정책(optimal policy)에 수렴하는 방식이다.
+이로 인해 구현이 상대적으로 간단하며, 각 반복에서의 계산량이 적어 반복 속도가 빠른 편이다.
+다만 최적 정책을 얻기 위해서는 충분히 많은 반복이 필요하며,
+상태 공간이 큰 환경에서는 모든 상태에 대해 최대값 연산을 반복해야 하므로 계산 비용이 높아질 수 있다.
 
 아래 GIF는 저장된 policy를 기반으로 FrozenLake 환경에서 agent가 실행한 결과를 시각화한 것이다.
 
-![FrozenLake Policy Execution](./results/gif/policy_iteration_episode_2.gif)
+![FrozenLake Policy Execution](./gif/policy_iteration_episode_2.gif)
 
 ## 📚 참고 자료
 
