@@ -33,7 +33,6 @@ def policy_iteration(env, discount_factor = 1.0):
     action_size = env.action_space.n
     policy = np.ones((state_size, action_size)) / action_size
 
-    evaluated_policies = 1
     while True:
         stable_policy = True
         value = policy_evaluation(policy, env, discount_factor = discount_factor)
@@ -42,8 +41,8 @@ def policy_iteration(env, discount_factor = 1.0):
             action_value = one_step_lookahead(env, state, value, discount_factor)
             best_action = np.argmax(action_value)
             if current_action != best_action:
-                stable_policy = True
+                stable_policy = False
                 policy[state] = np.eye(action_size)[best_action]
         if stable_policy:
-            print(f"evaluated policies : {policy}")
+            print(f"Policy Iteration converged : {policy}")
             return policy, value

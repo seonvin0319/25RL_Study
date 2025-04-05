@@ -5,4 +5,4 @@ env:
   render_mode: 'human'  # null, 'human', 'rgb_array'
 
 planner:
-  episodes: 1000 
+  episodes: 1000

@@ -1,6 +1,7 @@
 import argparse
 import yaml
 import os
+import time
 import numpy as np
 from pathlib import Path
 from algorithms.policy_iteration import policy_iteration
@@ -50,7 +51,11 @@ def main():
 
         trainer._init_env()
         env = trainer.env
+        start = time.time()
         policy, V = solver_func(env)
+        end = time.time()
+
+        print(f"{solver_name} iteration Time: {end - start:.4f} sec")
 
         if not os.path.exists("results"):
             os.mkdir("results")

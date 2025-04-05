@@ -38,7 +38,7 @@ class GymTrainer:
             else:
                 writer.writerow([data])
 
-    def evaluate_policy(self, policy, n_episodes=1000, make_csv=False, csv_dir=None):
+    def evaluate_policy(self, policy, n_episodes, make_csv=False, csv_dir=None):
         if self.env is None:
             self._init_env()
 
