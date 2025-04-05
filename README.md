@@ -20,6 +20,7 @@
 
 ## 🗂️ 폴더 구조
 
+```bash
 25RL_Study/
 ├── DP/           # Dynamic Programming
 ├── MC/           # Monte Carlo
