@@ -1,0 +1,8 @@
+# setup/dp_arg.yaml
+
+env:
+  name: 'FrozenLake-v1'
+  render_mode: 'human'  # null, 'human', 'rgb_array'
+
+planner:
+  episodes: 1000 
