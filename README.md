@@ -9,11 +9,11 @@
 
 ## 🧠 다루는 알고리즘
 - **DP (Dynamic Programming)**  
-  - Value Iteration, Policy Iteration 등
+  - Value Iteration, Policy Iteration
 - **MC (Monte Carlo Methods)**  
-  - Exploring Starts, Every-Visit, First-Visit MC 등
+  - Exploring Starts, Every-Visit, First-Visit MC 예정
 - **TD (Temporal Difference Learning)**  
-  - SARSA, Q-Learning 등
+  - SARSA, Q-Learning 예정
 - **DQN (Deep Q-Network)**
 - **DDPG (Deep Deterministic Policy Gradient)**
 - **PPO (Proximal Policy Optimization)**
@@ -28,4 +28,4 @@
 ├── DQN/          # DQN
 ├── DDPG/         # DDPG
 ├── PPO/          # PPO
-└── README.md     # 이 파일
+└── README.md    
