@@ -1,4 +1,4 @@
-# 🧊 FrozenLake-v1: Policy Iteration vs Value Iteration with OpenAI Gym
+# 🧊 FrozenLake-v1: SARSA vs Q-Learning with OpenAI Gym
 
 OpenAI Gym의 `FrozenLake-v1` 환경에서 SARSA (on-policy)와 Q-Learning (off-policy)을 구현하고 비교 실험한 미니 프로젝트이이다.
 FrozenLake는 구조가 단순한 환경으로, TD 학습 알고리즘의 학습 방식 차이를 비교하기에 적절하하다.
