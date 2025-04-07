@@ -4,16 +4,14 @@
 
 ## 🎯 목표
 - 강화학습 이론의 핵심 개념 이해
-- DP, MC, TD 등 고전적 방법에서 DQN, DDPG, PPO까지 주요 알고리즘 실습
+- DP, TD 등 고전적 방법에서 DQN, DDPG, PPO까지 주요 알고리즘 실습
 - 실전 환경에서의 알고리즘 적용 및 구현력 향상
 
-## 🧠 다루는 알고리즘
+## 🧠 알고리즘
 - **DP (Dynamic Programming)**  
   - Value Iteration, Policy Iteration
-- **MC (Monte Carlo Methods)**  
-  - Exploring Starts, Every-Visit, First-Visit MC 예정
 - **TD (Temporal Difference Learning)**  
-  - SARSA, Q-Learning 예정
+  - SARSA, Q-Learning
 - **DQN (Deep Q-Network)**
 - **DDPG (Deep Deterministic Policy Gradient)**
 - **PPO (Proximal Policy Optimization)**
