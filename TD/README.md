@@ -4,7 +4,7 @@ OpenAI Gym의 `FrozenLake-v1` 환경에서 SARSA와 Q-Learning을 구현하고 �
 FrozenLake는 구조가 단순한 환경으로, TD 학습 알고리즘의 학습 방식 차이를 비교하기에 적절하하다.
 학습이 지나치게 오래 걸리는 문제를 완화하기 위해, 구멍(Hole)에 빠졌을 때 -1의 패널티를 주는 reward shaping을 적용하였고, 탐험을 충분히 유도하기 위해 ε(epsilon) 값을 상대적으로 크게 설정하였다.
 
-📖 개념 설명 블로그 → https://van-liebling.tistory.com/39
+📖 개념 설명 블로그 → https://van-liebling.tistory.com/40
 
 ## 📁 프로젝트 구조
 
