@@ -1,0 +1,17 @@
+# setup/td_arg.yaml
+
+env:
+  name: 'FrozenLake-v1'
+  render_mode: 'human'  # null, 'human', 'rgb_array'
+  is_slippery: False
+
+train:
+  episodes: 1000
+
+test:
+  episodes: 10
+
+hyperparameter:
+  gamma: 0.99
+  alpha: 0.1
+  epsilon: 0.5
