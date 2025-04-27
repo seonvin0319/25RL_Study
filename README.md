@@ -13,7 +13,6 @@
 - **TD (Temporal Difference Learning)**  
   - SARSA, Q-Learning
 - **DQN (Deep Q-Network)**
-- **DDPG (Deep Deterministic Policy Gradient)**
 - **PPO (Proximal Policy Optimization)**
 
 ## 🗂️ 폴더 구조
@@ -24,6 +23,5 @@
 ├── MC/           # Monte Carlo
 ├── TD/           # Temporal Difference
 ├── DQN/          # DQN
-├── DDPG/         # DDPG
 ├── PPO/          # PPO
 └── README.md    
