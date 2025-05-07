@@ -1,0 +1,32 @@
+# Environment configuration
+env:
+  name: 'HalfCheetah-v4'        # Name of the Gym environment
+  render_mode: 'human'          # 'human' or 'rgb_array'
+
+# Model architecture
+model:
+  hidden_dim: 64                # Hidden layer size
+  device: 'cpu'                 # Device: 'cuda' or 'cpu'
+
+# Training hyperparameters
+train:
+  actor_lr: 3.0e-4              # Learning rate for the actor network
+  critic_lr: 1.0e-3             # Learning rate for the critic network
+  gamma: 0.99                   # Discount factor
+  lam: 0.95                     # GAE lambda
+  eps_clip: 0.2                 # PPO clip range for surrogate objective
+  entropy_coef: 0.01            # Entropy bonus coefficient
+  value_coef: 0.5               # Critic loss coefficient
+  rollout_steps: 2048           # Number of steps collected per rollout
+  batch_size: 64                # Batch size for updates
+  update_epochs: 10             # Number of epochs per PPO update
+  max_episodes: 10000           # Maximum number of training episodes
+  max_steps: 1000               # Maximum steps per episode
+
+# Save/load settings
+save:
+  model: true                   # Whether to save the model
+  model_path: './results/ppo_model.pth'  # Path to save the model
+  make_csv: true                # Whether to save training results as CSV
+  csv_path: './results/ppo_train_data.csv' # Path to save training data
+  load_model: null              # Path to load a pre-trained model (if any)
