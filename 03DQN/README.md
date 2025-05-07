@@ -109,14 +109,10 @@ python -m environment.gym_test
 
 ---
 
-## 📊 결과 분석
+## 📊 에피소드 예시
 
-| Metric | DQN |
-|:---|:---|
-| Total Episodes | 1000 |
-| Max Steps per Episode | 500 |
-| Average Reward | 약 490 이상 (수렴 후) |
-| Success Criteria | 475점 이상 유지 |
+![Episode 95](gif/episode_95.gif)
+
 ---
 
 학습 조건:  
@@ -128,7 +124,6 @@ python -m environment.gym_test
 초기에는 탐험 비율이 높아 다양한 행동을 시도하며,  
 학습이 진행되면서 epsilon이 점진적으로 감소하여 exploitation이 주를 이루게 된다.  
 DQN 특성상, replay buffer를 통한 샘플 decorrelation과 target network를 통한 안정적 업데이트가 학습 성능 향상에 크게 기여하였다.  
-실험 결과, 평균 reward가 490 이상으로 안정적으로 수렴하여 CartPole 문제를 성공적으로 해결할 수 있었다.
 
 ## 📚 참고 자료
 
