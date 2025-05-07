@@ -4,7 +4,7 @@
 
 ## 🎯 목표
 - 강화학습 이론의 핵심 개념 이해
-- DP, TD 등 고전적 방법에서 DQN, DDPG, PPO까지 주요 알고리즘 실습
+- DP, TD 등 고전적 방법에서 DQN, PPO까지 주요 알고리즘 실습
 - 실전 환경에서의 알고리즘 적용 및 구현력 향상
 
 ## 🧠 알고리즘
@@ -13,7 +13,6 @@
 - **TD (Temporal Difference Learning)**  
   - SARSA, Q-Learning
 - **DQN (Deep Q-Network)**
-- **DDPG (Deep Deterministic Policy Gradient)**
 - **PPO (Proximal Policy Optimization)**
 
 ## 🗂️ 폴더 구조
@@ -24,6 +23,5 @@
 ├── MC/           # Monte Carlo
 ├── TD/           # Temporal Difference
 ├── DQN/          # DQN
-├── DDPG/         # DDPG
 ├── PPO/          # PPO
 └── README.md    
