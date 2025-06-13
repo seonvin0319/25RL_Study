@@ -1,137 +1,118 @@
-# 🏗️ CartPole-v1: DQN with OpenAI Gym 
 
-OpenAI Gym의 `CartPole-v1` 환경에서 DQN(Deep Q-Network)을 구현하고 학습 성능을 실험한 미니 프로젝트이다.
-CartPole은 연속적인 상태공간을 가지면서도 구조가 단순해, 강화학습 알고리즘의 성능을 검증하고 분석하기에 적합하다.
-학습 안정성을 높이기 위해 Target Network와 Experience Replay 기법을 적용하였으며,
-탐험(exploration)을 충분히 유도하기 위해 ε(epsilon) 값을 초기에는 크게 설정하고, 학습이 진행됨에 따라 점진적으로 감소시키는 epsilon decay 전략을 사용하였다.
+# Robot Estimation Projects: MVU & MLE
 
-📖 개념 설명 블로그 → https://van-liebling.tistory.com/41
+This repository contains two simulation-based estimation projects implemented in Python:
 
-## 📁 프로젝트 구조
-
-```bash
-.
-├── algorithms/
-│   └── dqn.py                    # DQN 업데이트 구현
-│
-├── environment/
-│   ├── gym_trainer.py            # Gym 환경 초기화, 정책책 학습 및 평가 유틸리티
-│   └── gym_test.py               # 저장된 정책 시각화 (gif로 저장) 테스트용 스크립트
-│
-├── experiment/
-│   └── run_dqn.py                # 전체 실험 실행 스크립트트
-│
-├── results/                      # 학습된 정책 및및 평가 결과 저장
-│
-└── setup/
-    └── dqn_arg.yaml              # 실험 파라미터 설정 파일
-```
-## Core Components
-
-- **Q-Network**: 상태(state)를 입력 받아 각 행동(action)의 Q값을 출력
-- **Target Network**: 학습 안정화를 위한 별도 Q 네트워크
-- **Replay Buffer**: 과거 경험을 저장하고 랜덤 샘플링하여 학습
-
-
-## Main Logic
-
-- **Epsilon-Greedy Policy**  
-  일정 확률(ε)로 무작위 행동을 선택하여 탐험, 나머지 확률로 최적 행동 선택
-
-- **TD Target 계산**  
-  다음 상태에서 최대 Q값을 이용해 TD target 생성
-
-- **Loss Function**  
-  현재 Q값과 TD target 간의 Mean Squared Error(MSE) 최소화
-
-- **Target Network Update**  
-  일정 주기마다 Q-Network의 파라미터를 Target Network에 복사
----
-
-## 🚀 실행 방법
-
-```bash
-# [1] 전체 실행
-# - FrozenLake 환경 초기화
-# - SARSA 및 Q-learning 수행
-# - 수렴된 시점의 policy 저장 (.npy)
-# - episode 별 reward 결과 저장 (.csv)
-# - setting은 setup/dp_arg.yaml 파일에서 변경 가능`
-
-python -m experiment.run_dqn
-
-# [2] 이미 학습된 정책을 기반으로 시뮬레이션만 수행
-# - 저장된 policy(.npy)를 불러와서 실행
-# - agent의 움직임을 .gif로 저장
-
-python -m environment.gym_test
-```
-
-## 📘 코드 설명
-
-### `algorithms/`
-
-- **`dqn.py`**  
-  Q-Network를 통해 행동별 Q값을 근사하고, Replay Buffer를 이용해 샘플 효율을 높이며, Target Network를 이용해 학습의 안정성을 보장하는 DQN 에이전트 구현.
-
-### `environment/`
-
-- **`gym_trainer.py`**  
-  Gym 환경 초기화 및 관리, 학습 루프 및 평가 도구 제공. 학습 중 reward를 기록하고, 훈련된 모델을 평가하는 기능 포함.
-
-- **`gym_test.py`**  
-  학습된 모델을 이용해 CartPole 환경에서 에이전트의 동작을 시각화하고 `.gif` 파일로 저장하는 테스트 스크립트.
-
-### `experiment/`
-
-- **`run_dqn.py`**  
-  전체 학습 및 테스트 프로세스를 실행하는 메인 스크립트. 설정 로딩 → 에이전트 학습 → 결과 저장 → 모델 평가 진행.
-
-### `setup/`
-
-- **`dqn_arg.yaml`**  
-  환경 이름, 렌더링 모드, DQN 학습 하이퍼파라미터를 설정하는 YAML 파일.
+- **Project 1: Minimum Variance Unbiased Estimator (MVU)**
+- **Project 2: Maximum Likelihood Estimation (MLE) for 2D Localization**
 
 ---
 
-## 📂 결과 확인
+## 📁 Project 1: MVU Estimation
 
-코드 실행이 끝나면 `results/` 폴더에 다음과 같은 결과 파일이 생성된다:
+### 🔍 Description
+Estimates the robot's true 2D position using MVU (sample mean) from noisy measurements.
 
-- **`model.pth`**  
-  최종 학습된 Q-Network 파라미터 저장 파일.
+### ⚙️ Parameters
+| Parameter   | Description                           |
+|-------------|---------------------------------------|
+| `--x`, `--y` | True position of robot               |
+| `--n`        | Number of noisy samples per trial    |
+| `--trials`   | Number of MVU estimation repetitions |
+| `--outdir`   | Output directory for plots           |
 
-- **`train_data.csv`**  
-  학습 과정에서의 episode별 평균 reward 및 loss를 기록한 CSV 파일.
-
-- **`gif/*.gif`**  
-  `gym_test.py`를 통해 생성된 시각화 결과 (agent의 action sequence)
+### 📊 Output Plots
+- `mvu_measurements.png`: Raw noisy samples in 2D
+- `mvu_estimate_distribution.png`: Distribution of MVU estimates
+- `mvu_variance_plot.png`: Variance trend as number of samples increases
 
 ---
 
-## 📊 결과 분석
+## 📁 Project 2: MLE Localization
 
-| Metric | DQN |
-|:---|:---|
-| Total Episodes | 1000 |
-| Max Steps per Episode | 500 |
-| Average Reward | 약 490 이상 (수렴 후) |
-| Success Criteria | 475점 이상 유지 |
+### 🔍 Description
+Estimates the robot's position from noisy distances to known landmarks using MLE.
+
+### ⚙️ Parameters
+| Parameter   | Description                             |
+|-------------|-----------------------------------------|
+| `--x`, `--y` | True robot location                    |
+| `--sigma`    | Standard deviation of distance noise   |
+| `--outdir`   | Output directory for plots             |
+
+### 📊 Output Plots
+- `mle_circle_plot.png`: Landmark distance circles and estimated vs true position
+
 ---
 
-학습 조건:  
-- 초기 epsilon=1.0, 최소 epsilon=0.01, epsilon decay=0.995
-- learning rate = 1e-3, gamma=0.99
-- replay buffer 크기=10000, batch size=64
-- target network는 매 100 스텝마다 hard update
+## 📈 Result Analysis & Insights
 
-초기에는 탐험 비율이 높아 다양한 행동을 시도하며,  
-학습이 진행되면서 epsilon이 점진적으로 감소하여 exploitation이 주를 이루게 된다.  
-DQN 특성상, replay buffer를 통한 샘플 decorrelation과 target network를 통한 안정적 업데이트가 학습 성능 향상에 크게 기여하였다.  
-실험 결과, 평균 reward가 490 이상으로 안정적으로 수렴하여 CartPole 문제를 성공적으로 해결할 수 있었다.
+### 🔹 MVU Estimation: Baseline (`x=2.0`, `y=3.0`, `n=50`)
+- **Measurement Distribution**: 측정값들은 중심인 (2,3)을 기준으로 고르게 퍼져 있으며, 일부 외곽 outlier가 존재함.
+- **Estimate Distribution**: MVU 추정값은 중심에 밀집되어 있고, 비교적 타원형 분포를 가짐. 평균적으로 정확하게 중심 근처에 모임.
+- **Variance Curve**: `n=10 → 100 → 500`로 갈수록 x, y 축 분산이 빠르게 감소하며 수렴. MVU 추정기의 일치성(consistency)이 잘 드러남.
 
-## 📚 참고 자료
+---
 
-- [Playing Atari with Deep Reinforcement Learning (Mnih et al., 2013)](https://arxiv.org/abs/1312.5602)
-- [OpenAI Gym Documentation](https://www.gymlibrary.dev/)
-- [PyTorch Documentation](https://pytorch.org/)
+### 🔹 MVU Estimation: Origin (`x=0.0`, `y=0.0`, `n=50`)
+- **Measurement Distribution**: 좌표 원점 주변에서 비교적 대칭적인 분포를 보이며, 전반적으로 퍼짐은 적절함.
+- **Estimate Distribution**: 중심이 0에 가까워서 시각적으로도 추정 분포가 원점 주변에 잘 몰림. 분산은 baseline과 유사한 수준.
+- **Variance Curve**: baseline 실험과 유사한 경향성을 가지며, 분산은 샘플 수에 따라 안정적으로 감소.
+
+---
+
+### 🔹 MVU Estimation: Far (`x=5.0`, `y=5.0`, `n=50`)
+- **Measurement Distribution**: 전반적으로 (5,5) 주변에 모여 있으나, baseline보다 좀 더 넓게 퍼지는 경향이 있음.
+- **Estimate Distribution**: 중심 추정은 잘 맞지만, 일부 외곽 추정값이 보여서 분산은 약간 더 큰 듯한 경향.
+- **Variance Curve**: baseline, origin과 유사한 패턴을 보이나, 초기 구간(n=10~50)에서 y축 분산이 상대적으로 더 큼.
+
+---
+
+### 🔹 MVU Estimation: Small Sample (`x=2.0`, `y=3.0`, `n=10`)
+- **Measurement Distribution**: 샘플 수가 적어 외곽에 위치한 값들이 눈에 띄며, 측정값의 중심 집중도가 낮음.
+- **Estimate Distribution**: MVU 추정값이 퍼져 있고 타원 형태의 밀집도가 낮으며, 불균형한 추정 분포가 드러남.
+- **Variance Curve**: 분산 값이 높고, 감소 속도도 느림. 작은 n에서는 MVU 추정기의 불확실성이 크게 나타남.
+
+---
+
+### 🔹 MVU Estimation: Medium Sample (`x=2.0`, `y=3.0`, `n=100`)
+- **Measurement Distribution**: (2,3)을 기준으로 고르게 퍼진 분포를 보이며, outlier는 거의 없음.
+- **Estimate Distribution**: 추정값들이 중심에 뚜렷하게 밀집되며, baseline보다 안정적이고 정확함.
+- **Variance Curve**: 샘플 수가 늘어남에 따라 분산이 빠르게 감소하며, 추정 신뢰도가 향상됨.
+
+---
+
+### 🔹 MVU Estimation: Large Sample (`x=2.0`, `y=3.0`, `n=500`)
+- **Measurement Distribution**: 매우 조밀하게 중심에 집중된 분포를 보이며, 노이즈 효과가 최소화됨.
+- **Estimate Distribution**: MVU 추정값이 거의 한 점에 모일 정도로 정확하게 수렴. 고신뢰도 추정이 가능함.
+- **Variance Curve**: 분산이 거의 0에 수렴. Gaussian 환경에서 MVU의 일치성과 효율성이 명확히 드러남.
+
+---
+
+### 🔹 MLE Localization: Baseline (`x=5.0`, `y=6.0`, `σ=0.5`)
+- **Measurement Circles**: 랜드마크가 고르게 배치되어 있으며, 측정 원들이 중심에서 균형 있게 교차함.
+- **MLE Estimate**: 추정 위치는 실제 위치와 거의 일치하며, 안정적인 측정 조건에서 높은 정확도 확인.
+
+---
+
+### 🔹 MLE Localization: Corner Case (`x=1.0`, `y=1.0`, `σ=0.5`)
+- **Measurement Circles**: 로봇이 한쪽 구석에 위치해 원이 한 방향으로 크게 퍼지며 교차가 불균형함.
+- **MLE Estimate**: 실제 위치에 근접하지만 일부 왜곡된 추정 결과가 발생. 구조적 제약이 반영된 예시.
+
+---
+
+### 🔹 MLE Localization: Edge Case (`x=9.0`, `y=9.0`, `σ=0.5`)
+- **Measurement Circles**: 좌측 하단으로 치우친 원들이 교차하는 형태로, 중심에서 크게 벗어난 배치 구조.
+- **MLE Estimate**: 원의 교차 영역이 적어 추정의 불확실성이 높아짐. 추정은 실제 위치 주변에 위치함.
+
+---
+
+### 🔹 MLE Localization: Low Noise (`x=5.0`, `y=6.0`, `σ=0.1`)
+- **Measurement Circles**: 반지름이 매우 작고, 교차 영역이 정밀하게 형성됨.
+- **MLE Estimate**: 추정값은 실제 위치와 거의 완전히 일치. 노이즈가 작을 때 MLE의 정밀도가 극대화됨.
+
+---
+
+### 🔹 MLE Localization: High Noise (`x=5.0`, `y=6.0`, `σ=1.0`)
+- **Measurement Circles**: 큰 반지름의 원들이 퍼지며, 교차 영역이 넓고 모호해짐.
+- **MLE Estimate**: 실제 위치에서 조금 벗어난 지점을 추정함. 노이즈 크기가 증가할수록 추정 정확도는 떨어짐.
